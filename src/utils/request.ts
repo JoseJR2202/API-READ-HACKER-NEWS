@@ -37,8 +37,8 @@ export const readHacerNews =async (): Promise<{
             if(!storys.find(item=> item.id_story===rows.story_id)){
                 storys.push({
                         id_story: rows.story_id,
-                        title: rows.story_title,
-                        url: rows.story_url,
+                        title: rows.story_title?rows.story_title:'Titulo no encontrado',
+                        url: rows.story_url?rows.story_url:'URL no encontrada',
                         publication_date:rows.publication_date//undefined
                 })
             }  
