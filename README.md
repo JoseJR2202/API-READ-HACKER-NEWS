@@ -46,4 +46,3 @@ Podra ver los resultados al finalizar su ejecucion, ademas se creara la carpeta 
 
 * Realizar pruebas de configuracion con Docker.
 * Optimizar algunos procesos.
-* Optimizar documentacion.

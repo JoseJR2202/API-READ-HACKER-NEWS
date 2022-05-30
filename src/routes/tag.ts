@@ -31,15 +31,7 @@ const router = Router();
  *                tags: "tags"
  *                message: "tags enviadas"
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.get('/:page',async (req, res) => {

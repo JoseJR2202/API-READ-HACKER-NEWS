@@ -31,15 +31,7 @@ const router = Router();
  *                comment: "Comentarios"
  *                message: "Comments enviadas"
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.get('/:page',async(req, res)=>{
@@ -84,16 +76,10 @@ router.get('/:page',async(req, res)=>{
  *                status: 200
  *                comment: "Comentarios"
  *                message: "Comments enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.post('/author/:page', filterByAuthorFieldsValidation, checkResult, async(req, res)=>{
@@ -138,16 +124,10 @@ router.post('/author/:page', filterByAuthorFieldsValidation, checkResult, async(
  *                status: 200
  *                comment: "Comentarios"
  *                message: "Comments enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.post('/date/:page', filterByDateFieldsValidation, checkResult, async(req, res)=>{
@@ -192,16 +172,10 @@ router.post('/date/:page', filterByDateFieldsValidation, checkResult, async(req,
  *                status: 200
  *                comment: "Comentarios"
  *                message: "Comments enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.post('/tag/:page',filterByTagFieldsValidation, checkResult,  async(req, res)=>{
@@ -246,16 +220,10 @@ router.post('/tag/:page',filterByTagFieldsValidation, checkResult,  async(req, r
  *                status: 200
  *                comment: "Comentarios"
  *                message: "Comments enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error' 
  */
 
 router.post('/filter/:page', filterCommentsFiledsValidation, checkResult, async(req, res)=>{
@@ -289,21 +257,20 @@ router.post('/filter/:page', filterCommentsFiledsValidation, checkResult, async(
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/responseComment'
+ *                type: object
+ *                properties:
+ *                  status:
+ *                    type: number
+ *                  comment:
+ *                    type: boolean
+ *                  message: 
+ *                    type: string
  *              example:
  *                status: 200
- *                comment: "Comentarios"
+ *                comment: true
  *                message: "Commentario eliminado"
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.delete('/:id', async(req, res)=>{

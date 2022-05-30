@@ -32,15 +32,7 @@ const router = Router();
  *                story: "story"
  *                message: "storys enviadas"
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.get('/:page', async(req, res)=>{
@@ -85,16 +77,10 @@ router.get('/:page', async(req, res)=>{
  *                status: 200
  *                story: "Historias"
  *                message: "storys enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.post('/author/:page', filterByAuthorFieldsValidation, checkResult, async(req, res)=>{
@@ -139,16 +125,10 @@ router.post('/author/:page', filterByAuthorFieldsValidation, checkResult, async(
  *                status: 200
  *                storys: "Historias"
  *                message: "storys enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.post('/date/:page', filterByDateFieldsValidation, checkResult, async(req, res)=>{
@@ -193,16 +173,10 @@ router.post('/date/:page', filterByDateFieldsValidation, checkResult, async(req,
  *                status: 200
  *                storys: "historias"
  *                message: "storys enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.post('/title/:page', filterByTitleFieldsValidation, checkResult, async(req, res)=>{
@@ -247,16 +221,10 @@ router.post('/title/:page', filterByTitleFieldsValidation, checkResult, async(re
  *                status: 200
  *                storys: "historias"
  *                message: "storys enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.post('/tag/:page', filterByTagFieldsValidation, checkResult, async(req, res)=>{
@@ -301,16 +269,10 @@ router.post('/tag/:page', filterByTagFieldsValidation, checkResult, async(req, r
  *                status: 200
  *                storys: "historias"
  *                message: "storys enviadas"
+ *        '400':
+ *          $ref: '#/components/responses/ValidationFields'
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error' 
  */
 
 router.post('/filter/:page', filterStorysFiledsValidation, checkResult, async(req, res)=>{
@@ -345,21 +307,20 @@ router.post('/filter/:page', filterStorysFiledsValidation, checkResult, async(re
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/responseStory'
+ *                type: object
+ *                properties:
+ *                  status:
+ *                    type: number
+ *                  storys:
+ *                    type: boolean
+ *                  message: 
+ *                    type: string
  *              example:
  *                status: 200
- *                storys: "historias"
+ *                storys: true
  *                message: "story eliminado"
  *        '500':
- *          description: Error en el servidor.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/error'
- *              example:
- *                status: 500
- *                error: "objeto con el error"
- *                message: 'Ocurrio un error en el servidor' 
+ *          $ref: '#/components/responses/Error'
  */
 
 router.delete('/:id', async(req, res)=>{

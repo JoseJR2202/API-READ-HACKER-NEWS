@@ -91,27 +91,6 @@ const swaggerDefinition: OAS3Definition = {
           }
         },
       },
-      story: {
-        type: "object",
-        required: ["id_story", "title","url"],
-        properties: {
-          id_story: {
-            type: "number",
-          },
-          title: {
-            type: "string",
-          },
-          author:{
-              type:"string"
-          },
-          story_text:{
-              type:"string"
-          },
-          url:{
-              type:"string"
-          }
-        },
-      },
       detailStory:{
         type: "object",
         required: ["id_story", "title","url","publication_date"],
@@ -137,7 +116,7 @@ const swaggerDefinition: OAS3Definition = {
           tags:{
               type:"array",
               items:{
-                  type:"string"
+                $ref:"#/components/schemas/tag"
               }
           }
         },
@@ -174,7 +153,7 @@ const swaggerDefinition: OAS3Definition = {
         comment:{
           type:"array",
           items:{
-            type:"comment",
+            $ref:"#/components/schemas/comment"
           }
         },
         message: {
@@ -191,7 +170,7 @@ const swaggerDefinition: OAS3Definition = {
         tags:{
           type:"array",
           items:{
-            type:"tag"
+            $ref:"#/components/schemas/tag"
           }
         },
         message: {
@@ -208,7 +187,7 @@ const swaggerDefinition: OAS3Definition = {
         storys:{
           type:"array",
           items:{
-            type:"story"
+            $ref:"#/components/schemas/detailStory"
           }
         },
         message: {
@@ -231,6 +210,38 @@ const swaggerDefinition: OAS3Definition = {
         }
       }
     },
+    responses:{
+      Error:{
+        description:"Error en el servidor.",
+        content:{
+          ["application/json"]:{
+            schema:{
+              $ref:'#/components/schemas/error'
+            },
+            example:{
+              status:500,
+              error:"Objeto con el error",
+              message:"Ocurrio un error en el servidor"
+            }
+          }
+        }
+      },
+      ValidationFields:{
+        description:"Error en datos enviados en el body.",
+        content:{
+          ["application/json"]:{
+            schema:{
+              $ref:'#/components/schemas/error'
+            },
+            example:{
+              status:400,
+              error:"Objeto con el error",
+              message:"Error en datos enviados"
+            }
+          }
+        }
+      }
+    }
   },
 };
 
