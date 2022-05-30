@@ -4,6 +4,44 @@ import {getComment, getCommentByAuthor, getCommentByDate, getCommentByTag, delet
 import {filterByAuthorFieldsValidation, filterByDateFieldsValidation, filterByTagFieldsValidation, filterCommentsFiledsValidation, checkResult} from '../validations/fields'
 const router = Router();
 
+/**
+ * @openapi
+ * /comment/{page}:
+ *    get:
+ *      tags:
+ *        - Comment
+ *      summary: "Visualizar comentarios"
+ *      parameters:
+ *          - in: path
+ *            name: page
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: ID de la pagina de comentarios a revisar
+ *      description: Este endpoint es usado para visualizar los comentarios sacados de hackernews 
+ *      responses:
+ *        '200':
+ *          description: Retorna el arreglo de los comentarios corespondiente a la pagina de {page}.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/responseComment'
+ *              example:
+ *                status: 200
+ *                comment: "Comentarios"
+ *                message: "Comments enviadas"
+ *        '500':
+ *          description: Error en el servidor.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/error'
+ *              example:
+ *                status: 500
+ *                error: "objeto con el error"
+ *                message: 'Ocurrio un error en el servidor' 
+ */
+
 router.get('/:page',async(req, res)=>{
     try {
         const data:detailComment[]=await getComment(+req.params.page);
@@ -13,7 +51,52 @@ router.get('/:page',async(req, res)=>{
     }
 });
 
-router.get('/author/:page', filterByAuthorFieldsValidation, checkResult, async(req, res)=>{
+/**
+ * @openapi
+ * /comment/author/{page}:
+ *    post:
+ *      tags:
+ *        - Comment
+ *      summary: "filtrar comentarios por autor"
+ *      parameters:
+ *          - in: path
+ *            name: page
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: ID de la pagina de comentarios a revisar
+ *      description: Este endpoint es usado para visualizar los comentarios sacados de hackernews filtrados por su autor
+ *      requestBody:
+ *        description: Valor del autor por cual filtrar
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/FilterAuthor'
+ *      responses:
+ *        '200':
+ *          description: Retorna el arreglo de los comentarios corespondiente a la pagina de {page}.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/responseComment'
+ *              example:
+ *                status: 200
+ *                comment: "Comentarios"
+ *                message: "Comments enviadas"
+ *        '500':
+ *          description: Error en el servidor.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/error'
+ *              example:
+ *                status: 500
+ *                error: "objeto con el error"
+ *                message: 'Ocurrio un error en el servidor' 
+ */
+
+router.post('/author/:page', filterByAuthorFieldsValidation, checkResult, async(req, res)=>{
     try {
         const data:detailComment[]=await getCommentByAuthor({author:req.body.author, page: +req.params.page});
         res.status(200).json({ status: 200, comment: data, message: 'Comments enviadas' });
@@ -22,7 +105,52 @@ router.get('/author/:page', filterByAuthorFieldsValidation, checkResult, async(r
     }
 });
 
-router.get('/date/:page', filterByDateFieldsValidation, checkResult, async(req, res)=>{
+/**
+ * @openapi
+ * /comment/date/{page}:
+ *    post:
+ *      tags:
+ *        - Comment
+ *      summary: "filtrar comentarios por fecha de realizacion"
+ *      parameters:
+ *          - in: path
+ *            name: page
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: ID de la pagina de comentarios a revisar
+ *      description: Este endpoint es usado para visualizar los comentarios sacados de hackernews filtrados por su fecha de realizacion
+ *      requestBody:
+ *        description: Valor de la fecha por cual filtrar
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/FilterDate'
+ *      responses:
+ *        '200':
+ *          description: Retorna el arreglo de los comentarios corespondiente a la pagina de {page}.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/responseComment'
+ *              example:
+ *                status: 200
+ *                comment: "Comentarios"
+ *                message: "Comments enviadas"
+ *        '500':
+ *          description: Error en el servidor.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/error'
+ *              example:
+ *                status: 500
+ *                error: "objeto con el error"
+ *                message: 'Ocurrio un error en el servidor' 
+ */
+
+router.post('/date/:page', filterByDateFieldsValidation, checkResult, async(req, res)=>{
     try {
         const data:detailComment[]=await getCommentByDate({date:req.body.date, page: +req.params.page});
         res.status(200).json({ status: 200, comment: data, message: 'Comments enviadas' });
@@ -31,7 +159,52 @@ router.get('/date/:page', filterByDateFieldsValidation, checkResult, async(req, 
     }
 });
 
-router.get('/tag/:page',filterByTagFieldsValidation, checkResult,  async(req, res)=>{
+/**
+ * @openapi
+ * /comment/tag/{page}:
+ *    post:
+ *      tags:
+ *        - Comment
+ *      summary: "filtrar comentarios por tags"
+ *      parameters:
+ *          - in: path
+ *            name: page
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: ID de la pagina de comentarios a revisar
+ *      description: Este endpoint es usado para visualizar los comentarios sacados de hackernews filtrados por sus tags
+ *      requestBody:
+ *        description: Valor del tag por cual filtrar
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/FilterTag'
+ *      responses:
+ *        '200':
+ *          description: Retorna el arreglo de los comentarios corespondiente a la pagina de {page}.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/responseComment'
+ *              example:
+ *                status: 200
+ *                comment: "Comentarios"
+ *                message: "Comments enviadas"
+ *        '500':
+ *          description: Error en el servidor.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/error'
+ *              example:
+ *                status: 500
+ *                error: "objeto con el error"
+ *                message: 'Ocurrio un error en el servidor' 
+ */
+
+router.post('/tag/:page',filterByTagFieldsValidation, checkResult,  async(req, res)=>{
     try {
         const data:detailComment[]=await getCommentByTag({tag:req.body.tag, page: +req.params.page});
         res.status(200).json({ status: 200, comment: data, message: 'Comments enviadas' });
@@ -40,7 +213,52 @@ router.get('/tag/:page',filterByTagFieldsValidation, checkResult,  async(req, re
     }
 });
 
-router.get('/filter/:page', filterCommentsFiledsValidation, checkResult, async(req, res)=>{
+/**
+ * @openapi
+ * /comment/filter/{page}:
+ *    post:
+ *      tags:
+ *        - Comment
+ *      summary: "filtrar comentarios por autor y tags"
+ *      parameters:
+ *          - in: path
+ *            name: page
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: ID de la pagina de comentarios a revisar
+ *      description: Este endpoint es usado para visualizar los comentarios sacados de hackernews filtrados por su autor y tags
+ *      requestBody:
+ *        description: Valor del autor por cual filtrar
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/commentFilter'
+ *      responses:
+ *        '200':
+ *          description: Retorna el arreglo de los comentarios corespondiente a la pagina de {page}.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/responseComment'
+ *              example:
+ *                status: 200
+ *                comment: "Comentarios"
+ *                message: "Comments enviadas"
+ *        '500':
+ *          description: Error en el servidor.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/error'
+ *              example:
+ *                status: 500
+ *                error: "objeto con el error"
+ *                message: 'Ocurrio un error en el servidor' 
+ */
+
+router.post('/filter/:page', filterCommentsFiledsValidation, checkResult, async(req, res)=>{
     try {
         const {author, tags}= req.body;
         const data:detailComment[]=await getFilterComment({author:author, tags:tags, page: +req.params.page});
@@ -49,6 +267,44 @@ router.get('/filter/:page', filterCommentsFiledsValidation, checkResult, async(r
         res.status(500).json({ status: 500, error: e, message: 'Ocurrio un error en el servidor' });
     }
 })
+
+/**
+ * @openapi
+ * /comment/{id}:
+ *    delete:
+ *      tags:
+ *        - Comment
+ *      summary: "Eliminar un comentario por su id"
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: ID del comentario a eliminar
+ *      description: Este endpoint es usado para eliminar un comentario por su id
+ *      responses:
+ *        '200':
+ *          description: Retorna si el comentario fue eliminado o no.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/responseComment'
+ *              example:
+ *                status: 200
+ *                comment: "Comentarios"
+ *                message: "Commentario eliminado"
+ *        '500':
+ *          description: Error en el servidor.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/error'
+ *              example:
+ *                status: 500
+ *                error: "objeto con el error"
+ *                message: 'Ocurrio un error en el servidor' 
+ */
 
 router.delete('/:id', async(req, res)=>{
     try {

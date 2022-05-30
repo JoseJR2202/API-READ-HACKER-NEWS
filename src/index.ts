@@ -6,6 +6,8 @@ import routes from './routes';
 import cron from 'node-cron';
 import {readHacerNews} from './utils/request';
 import { insertCommentBD, insertStoryBD } from './utils/extras';
+import swaggerUi from "swagger-ui-express";
+import swaggerSetup from "./docs/swagger";
 
 const app = express();
 
@@ -33,6 +35,7 @@ cron.schedule('0 */1 * * *',async ()=>{
   }
 })
 
+app.use("/documentation",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 app.use('/',routes);
 
 export default app;

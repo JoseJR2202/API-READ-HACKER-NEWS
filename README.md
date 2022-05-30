@@ -2,6 +2,8 @@
 
 Este proyecto representa una pequeña API dedicada a la obtención y visualizacion de la información proporcionada por hackernews acerca de temas referentes a NodeJS.
 
+La Api tambien cuenta con una documentacion generada mediante el uso swagger. Para acceder a la documentacion use la ruta `/documentation`
+
 ## Cómo Probar
 
 1. Clona o descarga el repositorio.
@@ -44,3 +46,4 @@ Podra ver los resultados al finalizar su ejecucion, ademas se creara la carpeta 
 
 * Realizar pruebas de configuracion con Docker.
 * Optimizar algunos procesos.
+* Optimizar documentacion.

@@ -4,6 +4,37 @@ import { insertCommentBD, insertStoryBD } from '../utils/extras';
 
 const router = Router();
 
+/**
+ * Post track
+ * @openapi
+ * /api/:
+ *    get:
+ *      tags:
+ *        - API
+ *      summary: "Realizar peticiones manuales a hackernews"
+ *      description: Este endpoint es para Realizar peticiones manuales a hackernews 
+ *      responses:
+ *        '200':
+ *          description: Retorna el resultado de la peticion a hackernews.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/responseApi'
+ *              example:
+ *                status: 200
+ *                message: "Se han agregado 10 historias/temas y 10 comentarios"
+ *        '500':
+ *          description: Error en el servidor.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/error'
+ *              example:
+ *                status: 500
+ *                error: "objeto con el error"
+ *                message: 'Ocurrio un error en el servidor'
+ */
+
 router.get('/',async(req, res)=>{
     try {
         const data= await readHacerNews();
