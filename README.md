@@ -44,5 +44,5 @@ Podra ver los resultados al finalizar su ejecucion, ademas se creara la carpeta 
 
 ## Trabajo Posterior
 
-* Realizar pruebas de configuracion con Docker.
+* Explicar uso de la API con docker.
 * Optimizar algunos procesos.
