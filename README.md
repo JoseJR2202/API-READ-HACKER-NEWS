@@ -32,6 +32,15 @@ Para realizar la prueba ejecuta el comando `npm test`.
 
 Podra ver los resultados al finalizar su ejecucion, ademas se creara la carpeta llamada `coverage` en ella encontrara un index html, el cual al clickear le permitira visualizar la informacion acerca del testing (esta misma se puede observar en la consola)
 
+## Como probar con docker
+
+La aplicacion esta configurada con docker para facilitar su prueba y evitar inconvenientes de incompatibilidad de versiones, suponiendo que previamente tiene docker y docker-compose instalado en su equipo, los pasos para probarla serian:
+
+* Ejecutar el comando `docker-compose build --no-cache`
+* Terminado el proceso anterior quedaria levantar la aplicacion, esto lo puede realizar con el comando `docker-compose up -d`, esto levantara la API y realizara la configuracion inicial de la base de datos, lo cual evita que deba perder tiempo creandola manualmente.
+* Luego de probar la API puede apagar/bajar la misma usando el comando `docker-compose down`
+
+
 ## Caracateristicas
 
 * Cada hora a los 0 minutos (ejemplo 4:00), el servidor realizará una petición a la API de hackernews para obtener nueva información.
@@ -44,5 +53,4 @@ Podra ver los resultados al finalizar su ejecucion, ademas se creara la carpeta 
 
 ## Trabajo Posterior
 
-* Explicar uso de la API con docker.
 * Optimizar algunos procesos.
